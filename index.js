@@ -1,4 +1,5 @@
 class CoffeeShop {
+
 	name;
 	menu;
 	orders;
@@ -10,53 +11,73 @@ class CoffeeShop {
 	}
 
 	addOrder(itemName) {
-		if (this.menu.find(item => item.name === itemName)) this.orders.push(itemName);
+		if (this.menu.find(item => item.name === itemName)) {
+			this.orders.push(itemName);
+			console.log(`${itemName} ordered.`)
+		}
 		else console.log(`${itemName} is currently unavailable!`);
 	}
 
-	fulfillOrder(itemName) {
-		if (this.orders.length === 0) {
-			return ('All orders have been fulfilled!');
+	fulfillOrder() {
+		if (this.orders.length <= 0) {
+			console.log('All orders have been fulfilled!');
 		}
-		return 'Following items are ready now:' + this.orders;
+		else {
+			console.log (`${this.orders.shift()} is ready now!`);
+		}
 	}
 
 	listOrders() {
-		return this.orders;
+		console.log(this.orders);
 	}
 
 	dueAmount() {
 		const orderedItems = this.orders.map(orderItemName => this.menu.find(item => item.name === orderItemName));
-		return orderedItems.reduce((accu, item) => accu += item.price, 0);
+		const dueAmount = orderedItems.reduce((accu, item) => accu += item.price, 0);
+		console.log(`Total amount due is: ${dueAmount}$`);
 	}
 
 	cheapestItem() {
-		return this.menu.reduce((accu, item) => item.price < accu.price ? item : accu);
+		const cheapestItem = this.menu.reduce((accu, item) => item.price < accu.price ? item : accu);
+		console.log(cheapestItem);
 	}
 
 	drinksOnly() {
-		return this.menu.filter(item => item.type === 'drink');
+		const drinksOnly = this.menu.filter(item => item.type === 'drink');
+		console.log(drinksOnly);
 	}
 
 	foodOnly() {
-		return this.menu.filter(item => item.type === 'food');
+		const foodOnly = this.menu.filter(item => item.type === 'food');
+		console.log(foodOnly);
 	}
 }
 
 const menuItems = [
 	{ name: 'Coffee, white', type: 'drink', price: 2 },
+	{ name: 'Pizza', type: 'food', price: 7 },
 	{ name: 'Coffee, black', type: 'drink', price: 1 },
 	{ name: 'Biscuit', type: 'food', price: 3 },
 ];
 
 const coffeeShop = new CoffeeShop('The Coffee Shop', menuItems, []);
-console.log(coffeeShop.drinksOnly());
-console.log(coffeeShop.foodOnly());
-console.log(coffeeShop.cheapestItem());
+
+console.log('Drinks:');
+coffeeShop.drinksOnly();
+console.log('Food:');
+coffeeShop.foodOnly();
+
+console.log('Cheapest item:');
+coffeeShop.cheapestItem();
 coffeeShop.addOrder('Coffee, white');
 coffeeShop.addOrder('Biscuit');
 coffeeShop.addOrder('Coffee, black');
 coffeeShop.addOrder('Tea');
-console.log(coffeeShop.listOrders());
-console.log(coffeeShop.dueAmount());
-console.log(coffeeShop.fulfillOrder());
+
+console.log('Orders:')
+coffeeShop.listOrders();
+coffeeShop.dueAmount();
+coffeeShop.fulfillOrder();
+coffeeShop.fulfillOrder();
+coffeeShop.fulfillOrder();
+coffeeShop.fulfillOrder();
