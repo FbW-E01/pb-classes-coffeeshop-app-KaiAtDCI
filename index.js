@@ -16,15 +16,13 @@ class CoffeeShop {
 
 	fulfillOrder(itemName) {
 		if (this.orders.length === 0) {
-			console.log('All orders have been fulfilled!');
-			return;
+			return ('All orders have been fulfilled!');
 		}
-		console.log('Following items are ready now:');
-		this.orders.forEach(console.log);
+		return 'Following items are ready now:' + this.orders;
 	}
 
 	listOrders() {
-		this.orders.forEach(console.log);
+		return this.orders;
 	}
 
 	dueAmount() {
@@ -43,7 +41,6 @@ class CoffeeShop {
 	foodOnly() {
 		return this.menu.filter(item => item.type === 'food');
 	}
-
 }
 
 const menuItems = [
@@ -55,15 +52,11 @@ const menuItems = [
 const coffeeShop = new CoffeeShop('The Coffee Shop', menuItems, []);
 console.log(coffeeShop.drinksOnly());
 console.log(coffeeShop.foodOnly());
-console.log(coffeeShop.cheapestItem())
+console.log(coffeeShop.cheapestItem());
 coffeeShop.addOrder('Coffee, white');
 coffeeShop.addOrder('Biscuit');
 coffeeShop.addOrder('Coffee, black');
 coffeeShop.addOrder('Tea');
-coffeeShop.listOrders();
+console.log(coffeeShop.listOrders());
 console.log(coffeeShop.dueAmount());
-coffeeShop.fulfillOrder();
-
-
-
-
+console.log(coffeeShop.fulfillOrder());
